@@ -1,0 +1,8 @@
+history
+places
+.cache
+straight
+.lsp-session*
+custom.el
+elpa
+auto-save-list
