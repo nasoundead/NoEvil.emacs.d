@@ -2,7 +2,7 @@
 (tool-bar-mode -1)
 ;;关闭文件滑动控件
 (scroll-bar-mode -1)
-(setq use-file-dialog nil) 
+(setq use-file-dialog nil)
 ;;更改光标的样式（不能生效，解决方案见第二集）
 (setq cursor-type 'bar)
 
@@ -72,7 +72,7 @@
     (setq exec-path-from-shell-variables '("PATH" "MANPATH" "PYTHONPATH" "GOPATH"))
     (setq exec-path-from-shell-arguments '("-l"))
     (exec-path-from-shell-initialize)))
-    
+
 (use-package saveplace
   :hook (after-init . save-place-mode))
 

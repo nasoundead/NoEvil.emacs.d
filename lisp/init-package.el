@@ -7,11 +7,9 @@
 (package-initialize) ;; You might already have this line
 
 ;;防止反复调用package-refresh-contents会影响加载速度
-(when 
+(when
     (not package-archive-contents)
-    (package-refresh-contents))
-(package-install 'use-package) 
-
-
+  (package-refresh-contents))
+(package-install 'use-package)
 
 (provide 'init-package)
