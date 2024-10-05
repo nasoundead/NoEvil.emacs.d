@@ -15,6 +15,9 @@
 (global-auto-revert-mode 1) ;; 自动加载文件
 (pixel-scroll-precision-mode)
 (display-time-mode)
+(delete-selection-mode 1)
+(electric-pair-mode 1)
+(global-hl-line-mode)
 
 (use-package emacs
   :init
@@ -62,7 +65,13 @@
        `(linum-highlight-face
          ((t (:inherit 'default :background ,(face-background 'default) :foreground ,(face-foreground 'default)))))))))
 
-
+(when (or (eq system-type 'darwin) (eq system-type 'gnu/linux))
+  (use-package exec-path-from-shell
+    :init
+    (setq exec-path-from-shell-check-startup-files nil)
+    (setq exec-path-from-shell-variables '("PATH" "MANPATH" "PYTHONPATH" "GOPATH"))
+    (setq exec-path-from-shell-arguments '("-l"))
+    (exec-path-from-shell-initialize)))
     
 (use-package saveplace
   :hook (after-init . save-place-mode))
@@ -86,6 +95,33 @@
   (dolist (hook '(emacs-lisp-mode-hook css-mode-hook))
     (add-hook hook #'aggressive-indent-mode)))
 
+;; A comprehensive visual interface to diff & patch
+(use-package ediff
+  :ensure t
+  :init
+  ;; show org ediffs unfolded
+  (with-eval-after-load 'outline
+    (add-hook 'ediff-prepare-buffer-hook #'show-all))
+  ;; restore window layout when done
+  (with-eval-after-load 'winner
+    (add-hook 'ediff-quit-hook #'winner-undo))
+  :config
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+  (setq ediff-split-window-function 'split-window-horizontally)
+  (setq ediff-merge-split-window-function 'split-window-horizontally))
+
+(use-package pcre2el
+  :ensure t
+  :commands rxt-quote-pcre
+  :init (add-hook 'after-init-hook #'rxt-global-mode))
+(use-package ialign
+  :ensure t
+  :init
+  (setq ialign-pcre-mode t)
+  (setq ialign-initial-group -1)
+  (setq ialign-initial-repeat t)
+  (setq ialign-initial-regexp "([ ,=])"))
+
 (use-package crux
   :ensure t
   :bind (
@@ -105,7 +141,10 @@
          ("C-c D" . crux-delete-buffer-and-file)
          ))
 
-
+;; An all-in-one comment command to rule them all
+(use-package comment-dwim-2
+  :ensure t
+  :bind ("M-;" . comment-dwim-2))
 
 (use-package hungry-delete
   :ensure t

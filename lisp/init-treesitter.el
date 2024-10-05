@@ -1,8 +1,9 @@
-(use-package tree-sitter
+(use-package treesit-auto
   :ensure t
+  :custom
+  (treesit-auto-install 'prompt)
+  (treesit-font-lock-level 4)
   :config
-  (require 'tree-sitter-langs)
-  (global-tree-sitter-mode)
-  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+  (global-treesit-auto-mode))
 
 (provide 'init-treesitter)

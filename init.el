@@ -2,10 +2,11 @@
 
 (require 'init-package)
 (require 'init-better-defaults)
+(require 'init-edit)
+(require 'init-search)
 (require 'init-navi)
 (require 'init-font)
 (require 'init-ui)
-(require 'init-edit)
 (require 'init-vertico)
 (require 'init-corfu)
 (require 'init-treesitter)

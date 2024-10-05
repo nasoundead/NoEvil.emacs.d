@@ -1,6 +1,3 @@
-(delete-selection-mode 1)
-(electric-pair-mode 1)
-
 (use-package iedit
   :ensure t
   :init
