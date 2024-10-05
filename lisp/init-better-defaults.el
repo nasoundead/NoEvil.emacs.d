@@ -14,7 +14,7 @@
 (setq auto-save-default nil) ;; 不生成自动保存文件
 (global-auto-revert-mode 1) ;; 自动加载文件
 (pixel-scroll-precision-mode)
-(display-time-mode)
+
 (delete-selection-mode 1)
 (electric-pair-mode 1)
 (global-hl-line-mode)
@@ -111,9 +111,7 @@
   (setq ediff-merge-split-window-function 'split-window-horizontally))
 
 (use-package pcre2el
-  :ensure t
-  :commands rxt-quote-pcre
-  :init (add-hook 'after-init-hook #'rxt-global-mode))
+  :ensure t)
 (use-package ialign
   :ensure t
   :init

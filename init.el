@@ -1,6 +1,7 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-(require 'init-package)
+;; (require 'init-package)
+(require 'init-straight)
 (require 'init-better-defaults)
 (require 'init-edit)
 (require 'init-search)

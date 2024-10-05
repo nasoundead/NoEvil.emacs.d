@@ -1,17 +1,33 @@
+;; Auto completion
 (use-package corfu
   :ensure t
-  :demand t
   :custom
   (corfu-auto t)
-  (corfu-max-width 110)
-  (corfu-auto-delay 0.0)
-  (corfu-auto-prefix 1)
+  (corfu-auto-prefix 2)
   (corfu-preview-current nil)
-  (corfu-echo-documentation t)
-  :bind (:map corfu-map
-              ("C-d" . corfu-info-documentation)
-              ("M-." . corfu-info-location))
-  :hook
-  (after-init . global-corfu-mode))
+  (corfu-auto-delay 0.2)
+  (corfu-popupinfo-delay '(0.4 . 0.2))
+  :custom-face
+  (corfu-border ((t (:inherit region :background unspecified))))
+  :bind ("M-/" . completion-at-point)
+  :hook ((after-init . global-corfu-mode)
+         (global-corfu-mode . corfu-popupinfo-mode)))
+
+(unless (display-graphic-p)
+  (use-package corfu-terminal
+    :ensure t
+    :hook (global-corfu-mode . corfu-terminal-mode)))
+
+;; Add extensions
+(use-package cape
+  :ensure t
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-elisp-block)
+  (add-to-list 'completion-at-point-functions #'cape-keyword)
+  (add-to-list 'completion-at-point-functions #'cape-abbrev)
+
+  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
 
 (provide 'init-corfu)

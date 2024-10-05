@@ -50,7 +50,6 @@
 ;; Colorize color names in buffers
 (use-package rainbow-mode
   :ensure t
-  :diminish
   :hook ((emacs-lisp-mode web-mode css-mode) . rainbow-mode))
 
 ;; Highlight brackets according to their depth
@@ -106,7 +105,6 @@
 ;; Visualize TAB, (HARD) SPACE, NEWLINE
 (use-package whitespace
   :ensure t
-  :diminish
   :hook ((prog-mode outline-mode conf-mode) . whitespace-mode)
   :config
   (setq whitespace-line-column fill-column) ;; limit line length
@@ -137,7 +135,6 @@
 
 (use-package whitespace-cleanup-mode
   :ensure t
-  :diminish whitespace-cleanup-mode
   :config
   (add-hook 'prog-mode-hook 'whitespace-cleanup-mode))
 
