@@ -10,6 +10,7 @@
 (require 'init-vertico)
 (require 'init-corfu)
 (require 'init-highlight)
+(require 'init-fold)
 (require 'init-treesitter)
 (require 'init-elgot)
 (require 'init-rust)
