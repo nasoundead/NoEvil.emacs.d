@@ -8,6 +8,8 @@
 (require 'init-navi)
 (require 'init-font)
 (require 'init-ui)
+(require 'init-project)
+(require 'init-hydra)
 (require 'init-vertico)
 (require 'init-corfu)
 (require 'init-highlight)
