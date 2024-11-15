@@ -22,4 +22,11 @@ point reaches the beginning or end of the buffer, stop there."
                 'smarter-move-beginning-of-line)
 
 
+(use-package avy
+  :ensure t
+  :bind (("C-'" . avy-goto-char-2)
+         ("C-:" . avy-goto-char)
+         ("M-g l" . avy-goto-line)
+  ))
+
 (provide 'init-navi)
