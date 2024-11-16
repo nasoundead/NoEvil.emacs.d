@@ -28,7 +28,11 @@
   (add-to-list 'completion-at-point-functions #'cape-keyword)
   (add-to-list 'completion-at-point-functions #'cape-abbrev)
 
-  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
+  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
+  :config
+  (setq-local completion-at-point-functions
+            (list (cape-capf-prefix-length #'cape-dabbrev 2)))
+  )
 
 (use-package kind-icon
   :ensure t
