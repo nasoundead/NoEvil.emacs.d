@@ -1,15 +1,15 @@
 (use-package anzu
-  :ensure t
-;;   :init (global-anzu-mode +1)
-  :hook
-  (after-init . global-anzu-mode)
-  :bind (([remap query-replace] . anzu-query-replace)
-	 ([remap query-replace-regexp] . anzu-query-replace-regexp)
-	 :map isearch-mode-map
-	 ([remap isearch-query-replace] . anzu-isearch-query-replace)
-	 ([remap isearch-query-replace-regexp] . anzu-isearch-query-replace-regexp))
-  :config (setq anzu-replace-to-string-separator
-		(if (char-displayable-p ?→) " → " " -> ")))
+ :ensure t
+  ;;   :init (global-anzu-mode +1)
+ :hook
+ (after-init . global-anzu-mode)
+ :bind (([remap query-replace] . anzu-query-replace)
+       ([remap query-replace-regexp] . anzu-query-replace-regexp)
+       :map isearch-mode-map
+       ([remap isearch-query-replace] . anzu-isearch-query-replace)
+       ([remap isearch-query-replace-regexp] . anzu-isearch-query-replace-regexp))
+ :config (setq anzu-replace-to-string-separator
+         (if (char-displayable-p ?→) " → " " -> ")))
 
 (setq isearch-lazy-count t)
 (setq lazy-count-prefix-format "%s/%s ")
@@ -25,21 +25,21 @@
 ;; isearch-toggle-symbol 默认绑定到M-s _ 。它和isearch-toggle-word的基本一样，不过它使isearch完全匹配一个symbol。 简单来说，symbol和word的区别：isearch-toggle-word是一个symbol，它包括isearch toggle和word三个word。
 ;; isearch-toggle-lax-whitespace 默认绑定到M-s SPC。开启该功能后，可以把输入中的空格当做一个固定的正则表达式，这个固定的正则表达式存在于search-whitespace-regexp变量中。关于这个功能，我在后面 空格的特殊用法 中进行详细说明。
 (with-eval-after-load 'isearch
-  ;; DEL during isearch should edit the search string, not jump back to the previous result
-  (define-key isearch-mode-map [remap isearch-delete-char] 'isearch-del-char)
-  ;; Activate occur easily inside isearch
-  (when (fboundp 'isearch-occur)
-    ;; to match ivy conventions
-    (define-key isearch-mode-map (kbd "C-c C-o") 'isearch-occur))
+ ;; DEL during isearch should edit the search string, not jump back to the previous result
+ (define-key isearch-mode-map [remap isearch-delete-char] 'isearch-del-char)
+ ;; Activate occur easily inside isearch
+ (when (fboundp 'isearch-occur)
+ ;; to match ivy conventions
+ (define-key isearch-mode-map (kbd "C-c C-o") 'isearch-occur))
 
-;;   (define-key isearch-mode-map (kbd "<C-return>") 'swiper-from-isearch)
+  ;;   (define-key isearch-mode-map (kbd "<C-return>") 'swiper-from-isearch)
 
-  (defadvice isearch-search (after isearch-no-fail activate)
-  (unless isearch-success
-    (ad-disable-advice 'isearch-search 'after 'isearch-no-fail)
-    (ad-activate 'isearch-search)
-    (isearch-repeat (if isearch-forward 'forward))
-    (ad-enable-advice 'isearch-search 'after 'isearch-no-fail)
-    (ad-activate 'isearch-search))))
+ (defadvice isearch-search (after isearch-no-fail activate)
+   (unless isearch-success
+  (ad-disable-advice 'isearch-search 'after 'isearch-no-fail)
+  (ad-activate 'isearch-search)
+  (isearch-repeat (if isearch-forward 'forward))
+  (ad-enable-advice 'isearch-search 'after 'isearch-no-fail)
+  (ad-activate 'isearch-search))))
 
 (provide 'init-search)

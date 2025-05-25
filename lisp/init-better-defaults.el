@@ -89,11 +89,11 @@
   (set-face-attribute 'which-key-local-map-description-face nil :weight 'bold)
   (which-key-setup-side-window-bottom))
 
-(use-package aggressive-indent
-  :ensure t
-  :init
-  (dolist (hook '(emacs-lisp-mode-hook css-mode-hook))
-    (add-hook hook #'aggressive-indent-mode)))
+;; (use-package aggressive-indent
+;;   :ensure t
+;;   :init
+;;   (dolist (hook '(emacs-lisp-mode-hook css-mode-hook))
+;;     (add-hook hook #'aggressive-indent-mode)))
 
 ;; A comprehensive visual interface to diff & patch
 (use-package ediff
@@ -131,12 +131,6 @@
          ("C-c M-c" . crux-capitalize-region)
          ("C-c d" . crux-duplicate-current-line-or-region)
          ("C-c M-d" . crux-duplicate-and-comment-current-line-or-region)
-
-         ("C-c O" . crux-open-with)
-         ("C-c K" . crux-kill-other-buffers)
-         ("C-c I" . crux-find-user-init-file)
-         ("C-c R" . crux-rename-buffer-and-file)
-         ("C-c D" . crux-delete-buffer-and-file)
          ))
 
 ;; An all-in-one comment command to rule them all

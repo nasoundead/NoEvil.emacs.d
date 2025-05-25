@@ -7,3 +7,5 @@ custom.el
 elpa
 auto-save-list
 projects
+eln-cache
+.mc-lists.el

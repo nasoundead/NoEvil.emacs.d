@@ -16,7 +16,7 @@
 (require 'init-fold)
 (require 'init-snippet)
 (require 'init-treesitter)
-;; (require 'init-elgot)
+(require 'init-elgot)
 (require 'init-rust)
 
 
