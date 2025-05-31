@@ -133,6 +133,12 @@
          ("C-c M-d" . crux-duplicate-and-comment-current-line-or-region)
          ))
 
+(use-package move-dup
+  :bind (("M-p"   . move-dup-move-lines-up)
+         ("C-M-p" . move-dup-duplicate-up)
+         ("M-n"   . move-dup-move-lines-down)
+         ("C-M-n" . move-dup-duplicate-down)))
+
 ;; An all-in-one comment command to rule them all
 (use-package comment-dwim-2
   :ensure t
