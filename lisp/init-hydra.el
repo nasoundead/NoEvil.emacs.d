@@ -1,4 +1,7 @@
 (require 'my-funcs)
+
+;; postframe
+(use-package posframe)
 (use-package hydra
   :hook (emacs-lisp-mode . hydra-add-imenu)
   :init
@@ -12,86 +15,48 @@
               `(:left-fringe 8
                 :right-fringe 8
                 :internal-border-width 2
-                :internal-border-color ,(face-background 'posframe-border nil t)
                 :background-color ,(face-background 'tooltip nil t)
                 :foreground-color ,(face-foreground 'tooltip nil t)
-                :lines-truncate t
-                :poshandler posframe-poshandler-frame-center-near-bottom)))
+                :lines-truncate t)))
       (hydra-set-posframe-show-params)
       (add-hook 'after-load-theme-hook #'hydra-set-posframe-show-params t))))
 
+;; (defhydra hydra-zoom (global-map "<f2>")
+;;   "zoom"
+;;   ("g" text-scale-increase "in")
+;;   ("l" text-scale-decrease "out"))
 
-;; (use-package pretty-hydra
-;;   :straight (pretty-hydra
-;; 	     :type git
-;; 	     :host github
-;; 	     :repo "dustinlacewell/pretty-hydra")
-;;   :bind ("<f6>" . toggles-hydra/body)
-;;   :hook (emacs-lisp-mode . (lambda ()
-;;                              (add-to-list
-;;                               'imenu-generic-expression
-;;                               '("Hydras"
-;;                                 "^.*(\\(pretty-hydra-define\\) \\([a-zA-Z-]+\\)"
-;;                                 2))))
-;;   :init
-;;   (cl-defun pretty-hydra-title (title &optional icon-type icon-name
-;;                                       &key face height v-adjust)
-;;     "Add an icon in the hydra title."
-;;     (let ((face (or face `(:inherit highlight :reverse-video t)))
-;;           (height (or height 1.2))
-;;           (v-adjust (or v-adjust 0.0)))
-;;       (concat
-;;        (when (and (icons-displayable-p) icon-type icon-name)
-;;          (let ((f (intern (format "nerd-icons-%s" icon-type))))
-;;            (when (fboundp f)
-;;              (concat
-;;               (apply f (list icon-name :face face :height height :v-adjust v-adjust))
-;;               " "))))
-;;        (propertize title 'face face))))
+(defhydra hydra-buffer-menu (:color pink
+                             :hint nil)
+  "
+^Mark^             ^Unmark^           ^Actions^          ^Search
+^^^^^^^^-----------------------------------------------------------------
+_m_: mark          _u_: unmark        _x_: execute       _R_: re-isearch
+_s_: save          _U_: unmark up     _b_: bury          _I_: isearch
+_d_: delete        ^ ^                _g_: refresh       _O_: multi-occur
+_D_: delete up     ^ ^                _T_: files only: % -28`Buffer-menu-files-only
+_~_: modified
+"
+  ("m" Buffer-menu-mark)
+  ("u" Buffer-menu-unmark)
+  ("U" Buffer-menu-backup-unmark)
+  ("d" Buffer-menu-delete)
+  ("D" Buffer-menu-delete-backwards)
+  ("s" Buffer-menu-save)
+  ("~" Buffer-menu-not-modified)
+  ("x" Buffer-menu-execute)
+  ("b" Buffer-menu-bury)
+  ("g" revert-buffer)
+  ("T" Buffer-menu-toggle-files-only)
+  ("O" Buffer-menu-multi-occur :color blue)
+  ("I" Buffer-menu-isearch-buffers :color blue)
+  ("R" Buffer-menu-isearch-buffers-regexp :color blue)
+  ("c" nil "cancel")
+  ("v" Buffer-menu-select "select" :color blue)
+  ("o" Buffer-menu-other-window "other-window" :color blue)
+  ("q" quit-window "quit" :color blue))
 
-;;   ;; Global toggles
-;;   (with-no-warnings
-;;     (pretty-hydra-define toggles-hydra (:title (pretty-hydra-title "Toggles" 'faicon "nf-fa-toggle_on")
-;;                                         :color amaranth :quit-key ("q" "C-g"))
-;;       ("Basic"
-;;        (("n" (cond ((fboundp 'display-line-numbers-mode)
-;;                     (display-line-numbers-mode (if display-line-numbers-mode -1 1)))
-;;                    ((fboundp 'gblobal-linum-mode)
-;;                     (global-linum-mode (if global-linum-mode -1 1))))
-;;          "line number"
-;;          :toggle (or (bound-and-true-p display-line-numbers-mode)
-;;                      (bound-and-true-p global-linum-mode)))
-;;         ("a" global-aggressive-indent-mode "aggressive indent" :toggle t)
-;;         ("d" global-hungry-delete-mode "hungry delete" :toggle t)
-;;         ("e" electric-pair-mode "electric pair" :toggle t)
-;;         ("c" flyspell-mode "spell check" :toggle t)
-;;         ("s" prettify-symbols-mode "pretty symbol" :toggle t)
-;;         ("l" global-page-break-lines-mode "page break lines" :toggle t)
-;;         ("b" display-battery-mode "battery" :toggle t)
-;;         ("i" display-time-mode "time" :toggle t)
-;;         ("m" doom-modeline-mode "modern mode-line" :toggle t))
-;;        "Highlight"
-;;        (("h l" global-hl-line-mode "line" :toggle t)
-;;         ("h p" show-paren-mode "paren" :toggle t)
-;;         ("h s" symbol-overlay-mode "symbol" :toggle t)
-;;         ("h r" rainbow-mode "rainbow" :toggle t)
-;;         ("h w" (setq-default show-trailing-whitespace (not show-trailing-whitespace))
-;;          "whitespace" :toggle show-trailing-whitespace)
-;;         ("h d" rainbow-delimiters-mode "delimiter" :toggle t)
-;;         ("h i" highlight-indent-guides-mode "indent" :toggle t)
-;;         ("h t" global-hl-todo-mode "todo" :toggle t))
-;;        "Program"
-;;        (("f" flymake-mode "flymake" :toggle t)
-;;         ("O" hs-minor-mode "hideshow" :toggle t)
-;;         ("u" subword-mode "subword" :toggle t)
-;;         ("W" which-function-mode "which function" :toggle t)
-;;         ("E" toggle-debug-on-error "debug on error" :toggle (default-value 'debug-on-error))
-;;         ("Q" toggle-debug-on-quit "debug on quit" :toggle (default-value 'debug-on-quit))
-;;         ("v" global-diff-hl-mode "gutter" :toggle t)
-;;         ("V" diff-hl-flydiff-mode "live gutter" :toggle t)
-;;         ("M" diff-hl-margin-mode "margin gutter" :toggle t)
-;;         ("D" diff-hl-dired-mode "dired gutter" :toggle t))
-;;        ))))
+(define-key Buffer-menu-mode-map "." 'hydra-buffer-menu/body)
 
 (provide 'init-hydra)
 
