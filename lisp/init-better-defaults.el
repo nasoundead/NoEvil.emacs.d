@@ -16,7 +16,7 @@
 (pixel-scroll-precision-mode)
 
 (delete-selection-mode 1)
-(electric-pair-mode 1)
+;; (electric-pair-mode 1)
 (global-hl-line-mode)
 
 (use-package emacs

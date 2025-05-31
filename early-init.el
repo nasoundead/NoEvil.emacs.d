@@ -61,3 +61,24 @@
 (defconst emacs/>=29p
   (>= emacs-major-version 29)
   "Emacs is 29 or above.")
+
+(defconst sea-site-lisp-dir
+  (expand-file-name "site-lisp/" user-emacs-directory)
+  "site-lisp directory.")
+
+(defun add-subdirs-to-load-path (dir)
+  "Recursive add directories to `load-path'."
+  (let ((default-directory (file-name-as-directory dir)))
+    (add-to-list 'load-path dir)
+    (normal-top-level-add-subdirs-to-load-path)))
+(add-subdirs-to-load-path sea-site-lisp-dir)
+
+(setq byte-compile-warnings '(not nresolved
+			      free-vars
+			      callargs
+			      redefine
+			      obsolete
+			      noruntime
+			      cl-functions
+			      interactive-only
+			      ))
