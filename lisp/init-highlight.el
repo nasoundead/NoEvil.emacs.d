@@ -143,15 +143,15 @@
   :ensure t
   :hook ((prog-mode text-mode conf-mode) . highlight-indent-guides-mode)
   :init
-  ;; (setq highlight-indent-guides-method 'column)
-  (setq highlight-indent-guides-method 'character)
+  (setq highlight-indent-guides-method 'column)
+ ;;  (setq highlight-indent-guides-method 'character)
   :config
   (add-hook 'focus-in-hook #'highlight-indent-guides-auto-set-faces)
   ;; `highlight-indent-guides' breaks in these modes
   :hook ((org-indent-mode-hook)
-	    . (lambda ()
-		(when highlight-indent-guides-mode
-			(highlight-indent-guides-mode -1)))))
+      . (lambda ()
+    (when highlight-indent-guides-mode
+      (highlight-indent-guides-mode -1)))))
 
 (use-package page-break-lines
   :ensure t

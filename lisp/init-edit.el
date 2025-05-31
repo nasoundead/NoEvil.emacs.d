@@ -1,11 +1,12 @@
-(use-package iedit
-  :ensure t
-  :init
-  (setq iedit-toggle-key-default nil)
-  :config
-  (define-key iedit-mode-keymap (kbd "M-h") 'iedit-restrict-function)
-  (define-key iedit-mode-keymap (kbd "M-i") 'iedit-restrict-current-line))
-
+;; init-edit.el
+;;
+;; This file contains configuration for editing text.
+;;
+;; Author: Wang Haibo
+;; init-edit.el
+;;
+;; This file contains configuration for editing text.
+;;
 (use-package multiple-cursors
   :ensure t
   :bind (("C->" . mc/mark-next-like-this)

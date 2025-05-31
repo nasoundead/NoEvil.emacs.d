@@ -8,6 +8,8 @@
 (require 'init-navi)
 (require 'init-font)
 (require 'init-ui)
+(require 'init-dired)
+(require 'init-neotree)
 (require 'init-project)
 (require 'init-hydra)
 (require 'init-vertico)

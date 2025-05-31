@@ -35,12 +35,24 @@
   :diminish yas-minor-mode
   :hook (after-init . yas-global-mode))
 
-;; Collection of yasnippet snippets
-(use-package yasnippet-snippets)
-
 ;; Yasnippet Completion At Point Function
-(use-package yasnippet-capf
-  :init (add-to-list 'completion-at-point-functions #'yasnippet-capf))
+(use-package consult-yasnippet
+  :ensure t)
+
+;; Auto Yasnippet
+(use-package auto-yasnippet
+  :ensure t
+  :config
+  (global-set-key (kbd "C-c C-y w")   #'aya-create)
+  (global-set-key (kbd "C-c C-y TAB") #'aya-expand)
+  (global-set-key (kbd "C-c C-y SPC") #'aya-expand-from-history)
+  (global-set-key (kbd "C-c C-y d")   #'aya-delete-from-history)
+  (global-set-key (kbd "C-c C-y c")   #'aya-clear-history)
+  (global-set-key (kbd "C-c C-y n")   #'aya-next-in-history)
+  (global-set-key (kbd "C-c C-y p")   #'aya-previous-in-history)
+  (global-set-key (kbd "C-c C-y s")   #'aya-persist-snippet)
+  (global-set-key (kbd "C-c C-y o")   #'aya-open-line))
+
 
 (provide 'init-snippet)
 
