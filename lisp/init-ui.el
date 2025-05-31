@@ -16,6 +16,7 @@
   (nerd-icons-font-family "Symbols Nerd Font Mono")
   )
 
+(set-frame-parameter nil 'alpha 0.95)
 ;; (use-package doom-themes
 ;;   :ensure t
 ;;   :config
