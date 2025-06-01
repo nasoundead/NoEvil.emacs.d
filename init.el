@@ -17,9 +17,12 @@
 (require 'init-highlight)
 (require 'init-fold)
 (require 'init-snippet)
+(require 'init-vsc)
 (require 'init-treesitter)
-(require 'init-elgot)
+(require 'init-eglot)
+;; (require 'init-lsp-bridge)
 (require 'init-rust)
+(require 'init-python)
 
 
 (setq custom-file

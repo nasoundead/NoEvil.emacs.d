@@ -35,13 +35,23 @@
             (list (cape-capf-prefix-length #'cape-dabbrev 2)))
   )
 
-(use-package kind-icon
-  :ensure t
-  :after corfu
-  :custom
-  (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
-  :config
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+(use-package nerd-icons-corfu
+ :straight (nerd-icons-corfu
+	 :type git
+	 :host github
+	 :repo "LuigiPiucco/nerd-icons-corfu")
+ :after corfu
+ :config
+ (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+
+;; (use-package kind-icon
+;;   :ensure t
+;;   :after corfu
+;;   :custom
+;;   (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
+;;   :config
+;;   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 ;; (use-package vterm
 ;;     :ensure t)
