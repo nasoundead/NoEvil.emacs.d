@@ -29,17 +29,29 @@
  (define-key isearch-mode-map [remap isearch-delete-char] 'isearch-del-char)
  ;; Activate occur easily inside isearch
  (when (fboundp 'isearch-occur)
- ;; to match ivy conventions
- (define-key isearch-mode-map (kbd "C-c C-o") 'isearch-occur))
+  ;; to match ivy conventions
+  (define-key isearch-mode-map (kbd "C-c C-o") 'isearch-occur))
 
   ;;   (define-key isearch-mode-map (kbd "<C-return>") 'swiper-from-isearch)
 
- (defadvice isearch-search (after isearch-no-fail activate)
-   (unless isearch-success
-  (ad-disable-advice 'isearch-search 'after 'isearch-no-fail)
-  (ad-activate 'isearch-search)
-  (isearch-repeat (if isearch-forward 'forward))
-  (ad-enable-advice 'isearch-search 'after 'isearch-no-fail)
-  (ad-activate 'isearch-search))))
+;;  (defadvice isearch-search (after isearch-no-fail activate)
+;;    (unless isearch-success
+;;     (ad-disable-advice 'isearch-search 'after 'isearch-no-fail)
+;;     (ad-activate 'isearch-search)
+;;     (isearch-repeat (if isearch-forward 'forward))
+;;     (ad-enable-advice 'isearch-search 'after 'isearch-no-fail)
+;;     (ad-activate 'isearch-search)))
+
+  ;; 定义建议函数
+  (defun isearch-no-fail-after-search (&rest _)
+    "在搜索失败时，重复上一次成功的搜索。"
+    (unless isearch-success
+      (advice-remove 'isearch-search #'isearch-no-fail-after-search)
+      (isearch-repeat (if isearch-forward 'forward))
+      (advice-add 'isearch-search :after #'isearch-no-fail-after-search)))
+
+  ;; 添加建议
+  (advice-add 'isearch-search :after #'isearch-no-fail-after-search)
+)
 
 (provide 'init-search)

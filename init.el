@@ -10,6 +10,7 @@
 (require 'init-ui)
 (require 'init-dired)
 (require 'init-neotree)
+(require 'init-fanyi)
 (require 'init-project)
 (require 'init-hydra)
 (require 'init-vertico)
