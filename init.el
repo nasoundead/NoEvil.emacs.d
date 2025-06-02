@@ -19,6 +19,7 @@
 (require 'init-fold)
 (require 'init-snippet)
 (require 'init-vsc)
+(require 'init-org)
 (require 'init-treesitter)
 (require 'init-lsp)
 ;; (require 'init-eglot)

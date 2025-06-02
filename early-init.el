@@ -66,6 +66,10 @@
   (expand-file-name "site-lisp/" user-emacs-directory)
   "site-lisp directory.")
 
+(defconst sea-etc-dir
+  (expand-file-name "etc/" user-emacs-directory)
+  "etc directory.")
+
 (defun add-subdirs-to-load-path (dir)
   "Recursive add directories to `load-path'."
   (let ((default-directory (file-name-as-directory dir)))
