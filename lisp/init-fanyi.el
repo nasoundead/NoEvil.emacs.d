@@ -15,7 +15,7 @@
 ;;     (setq fanyi-auto-select nil))
 
 (use-package bing-dict
-  :ensure t:
+  :ensure t
   :config
   (global-set-key (kbd "C-c f") 'bing-dict-brief))
 
